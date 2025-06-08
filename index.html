@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <!-- 
-    ご機嫌マスター - 非認知脳トレーニングアプリ（リデザイン・アイコン設定修正版）
+    ご機嫌マスター - 非認知脳トレーニングアプリ（改修版）
     
     【概要】
     辻秀一先生の理論に基づく3つの基本練習を実践するWebアプリ
@@ -10,29 +10,35 @@
     - ご機嫌の価値を知る
     - 今ここ自分を意識する
     
-    【デザインコンセプト】
-    温かみのある色調と洗練されたアニメーション、
-    心地よいインタラクションで毎日の記録を楽しくサポート
-    
-    【データ保存】
-    localStorageを使用してデータを永続化
-    週次で自動リセット、過去データは保存
-
-    【主な修正点】
-    1. Web App Manifestの修正：「ホーム画面に追加」した際のアプリ名が文字化けする問題を修正。
+    【主な改修点】
+    1. ファビコン修正：スマホ等でファビコンが正しく表示されない問題を修正。SVGアイコンと互換性の高いPNGアイコン設定に変更しました。
+    2. レスポンシブ改善：スマホ表示でレベル名が改行される問題を修正しました。
+    3. スワイプナビゲーション：左右のスワイプでセクションを移動できるようになりました。
+    4. UI/UX改善：セクション間の移動をスライドアニメーションに変更し、より滑らかな操作感を実現しました。
     -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1a1a2e">
     <title>ご機嫌マスター</title>
 
-    <!-- ホーム画面アイコンとPWAマニフェスト設定 (修正版) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://placehold.co/180x180/ff6b6b/ffffff?text=%F0%9F%98%8A&font=noto">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/ff6b6b/ffffff?text=%F0%9F%98%8A&font=noto">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://placehold.co/192x192/ff6b6b/ffffff?text=%F0%9F%98%8A&font=noto">
-    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoi44GT5qGl5qCF44Oe44K544K/44O8Iiwic2hvcnRfbmFtZSI6IuOBk+ahpeahheODnueCuei/vOODvCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMWExYTJlIiwidGhlbWVfY29sb3IiOiIjMWExYTJlIiwiZGVzY3JpcHRpb24iOiLmmL/loLFzaOODhOODs+ODiOOCouODvOODiOOBk+ahpeahheOBjOODvOOCouODg+ODlOODqyIsImljb25zIjpbeyJzcmMiOiJodHRwczovL3BsYWNlaG9sZC5jby8xOTJ4MTkyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTglOUEmZm9udD1ub3RvIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyJ9LHsic3JjIjoiaHR0cHM6Ly9wbGFjZWtoZ3VsZC5jby81MTJ4NTEyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTglOUEmZm9udD1ub3RvIiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3BuZyJ9XX0=">
+    <!-- --- ファビコンとPWAアイコン設定 (修正版) --- -->
+    <!-- テーマカラー -->
+    <meta name="theme-color" content="#ff6b6b">
+
+    <!-- メインのSVGアイコン (最新のブラウザ向け) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23ff6b6b'/%3E%3Cpath d='M9 18 C11 23, 21 23, 23 18' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='14' r='2.5' fill='white'/%3E%3Ccircle cx='20' cy='14' r='2.5' fill='white'/%3E%3C/svg%3E">
+
+    <!-- iOSのホーム画面用アイコン -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://placehold.co/180x180/ff6b6b/ffffff?text=%E2%98%85&font=noto">
+
+    <!-- その他のPNGアイコン (下位互換性のため) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/ff6b6b/ffffff?text=%E2%98%85&font=noto">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://placehold.co/16x16/ff6b6b/ffffff?text=%E2%98%85&font=noto">
+    
+    <!-- PWAマニフェストファイル -->
+    <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22%E3%81%94%E6%A9%9F%E5%AB%8C%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%22%2C%22short_name%22%3A%22%E3%81%94%E6%A9%9F%E5%AB%8C%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231a1a2e%22%2C%22theme_color%22%3A%22%231a1a2e%22%2C%22description%22%3A%22%E9%9D%9E%E8%AA%8D%E7%9F%A5%E8%84%B3%E3%82%92%E9%8D%9B%E3%81%88%E3%81%A6%E3%81%94%E6%A9%9F%E5%AB%8C%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A//placehold.co/192x192/ff6b6b/ffffff%3Ftext%3D%25E2%2598%2585%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22https%3A//placehold.co/512x512/ff6b6b/ffffff%3Ftext%3D%25E2%2598%2585%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+    <!-- --- ファビコン設定ここまで --- -->
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
@@ -188,15 +194,23 @@
             transform: translateY(-2px);
         }
 
+        /* --- スワイプ機能のための新しいスタイル --- */
+        .sections-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+        .sections-container {
+            display: flex;
+            /* JavaScriptで動的に設定されます */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
         .section {
-            display: none;
+            /* JavaScriptで動的に設定されます */
+            flex-shrink: 0;
+            /* 元々の 'display: none' は不要になります */
             animation: fadeIn 0.6s ease;
         }
-
-        .section.active {
-            display: block;
-        }
-
+        
         .card {
             background: var(--surface);
             border-radius: 20px;
@@ -239,7 +253,7 @@
         }
 
         .card h2::before {
-            content: '🎯';
+            content: '�';
             font-size: 1.5rem;
         }
 
@@ -470,51 +484,6 @@
             font-weight: 500;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes sparkle {
-            0%, 100% { 
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-            50% { 
-                transform: scale(1.2) rotate(180deg);
-                opacity: 0.8;
-            }
-        }
-
         .progress-bar {
             width: 100%;
             height: 12px;
@@ -532,6 +501,36 @@
             box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
         }
 
+        /* --- レスポンシブ改行対策 --- */
+        .value-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap; /* これが改行を防ぐキー */
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        .value-progress-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .value-progress-text .value-count {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .value-level-badge {
+            background: var(--gradient-warm);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap; /* バッジ内のテキストも改行させない */
+            flex-shrink: 0; /* バッジが縮まないようにする */
+        }
+        
         .delete-button {
             display: none;
             position: absolute;
@@ -600,7 +599,8 @@
         .notification {
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: var(--gradient-warm);
             color: white;
             padding: 18px 25px;
@@ -608,7 +608,7 @@
             box-shadow: 
                 0 10px 30px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            animation: slideInRight 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideInDown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 2000;
             max-width: 90%;
             word-wrap: break-word;
@@ -618,26 +618,26 @@
         .notification.error {
             background: var(--gradient-2);
         }
-
-        @keyframes slideInRight {
-            from { 
-                transform: translateX(120%);
+        
+        @keyframes slideInDown {
+            from {
                 opacity: 0;
+                transform: translate(-50%, -120%);
             }
-            to { 
-                transform: translateX(0);
+            to {
                 opacity: 1;
+                transform: translate(-50%, 0);
             }
         }
-
-        @keyframes slideOutRight {
-            from { 
-                transform: translateX(0);
+        
+        @keyframes slideOutUp {
+            from {
                 opacity: 1;
+                transform: translate(-50%, 0);
             }
-            to { 
-                transform: translateX(120%);
+            to {
                 opacity: 0;
+                transform: translate(-50%, -120%);
             }
         }
 
@@ -652,10 +652,51 @@
             to { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
         }
 
-        @keyframes particleFly {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-500px) rotate(720deg); opacity: 0; }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(1.2) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
 
         /* --- レスポンシブデザイン --- */
         /* タブレット & 小型デスクトップ */
@@ -720,6 +761,12 @@
                 padding: 20px;
                 font-size: 1.4rem;
             }
+            .value-progress-text {
+                font-size: 1rem;
+            }
+            .value-progress-text .value-count {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -738,169 +785,181 @@
             <button class="nav-button" data-section="settings">設定</button>
         </div>
 
-        <!-- 感情に気づくセクション -->
-        <div id="emotion-section" class="section active">
-            <div class="card">
-                <h2>今の感情は？</h2>
-                <p style="color: var(--text-dim); margin-bottom: 25px;">
-                    まずは快か不快かに気づき、詳しく言語化しましょう
-                </p>
-                
-                <div class="emotion-main-grid">
-                    <button class="emotion-button" data-emoji="😊" data-name="快">
-                        😊<br><span>快</span>
-                    </button>
-                    <button class="emotion-button" data-emoji="😔" data-name="不快">
-                        😔<br><span>不快</span>
-                    </button>
-                </div>
+        <div class="sections-wrapper">
+            <div class="sections-container">
 
-                <div class="input-group">
-                    <label>どんな快/不快？詳しく言語化してみましょう</label>
-                    <textarea id="emotion-detail" rows="4" placeholder="例：プレゼンが終わってホッとした（快）/ 明日の会議を考えると胸がザワザワする（不快）"></textarea>
-                </div>
+                <!-- 感情に気づくセクション -->
+                <div id="emotion-section" class="section">
+                    <div class="card">
+                        <h2>今の感情は？</h2>
+                        <p style="color: var(--text-dim); margin-bottom: 25px;">
+                            まずは快か不快かに気づき、詳しく言語化しましょう
+                        </p>
+                        
+                        <div class="emotion-main-grid">
+                            <button class="emotion-button" data-emoji="😊" data-name="快">
+                                😊<br><span>快</span>
+                            </button>
+                            <button class="emotion-button" data-emoji="😔" data-name="不快">
+                                😔<br><span>不快</span>
+                            </button>
+                        </div>
 
-                <button class="button" id="save-emotion-btn">感情を記録する</button>
+                        <div class="input-group">
+                            <label>どんな快/不快？詳しく言語化してみましょう</label>
+                            <textarea id="emotion-detail" rows="4" placeholder="例：プレゼンが終わってホッとした（快）/ 明日の会議を考えると胸がザワザワする（不快）"></textarea>
+                        </div>
 
-                <div id="emotion-history" style="margin-top: 35px;"></div>
-            </div>
-        </div>
+                        <button class="button" id="save-emotion-btn">感情を記録する</button>
 
-        <!-- ご機嫌の価値セクション -->
-        <div id="value-section" class="section">
-            <div class="card">
-                <h2>ご機嫌でいると何が良い？</h2>
-                <p style="color: var(--text-dim); margin-bottom: 25px;">
-                    価値リストは累積されます。10→30→50→100→300個でレベルアップ！
-                </p>
-
-                <div class="input-group">
-                    <label>ご機嫌の価値を入力</label>
-                    <input type="text" id="value-input" placeholder="例：アイデアが湧いてくる">
-                </div>
-
-                <button class="button" id="add-value-btn">価値を追加</button>
-
-                <div id="value-progress-container" style="margin-top: 25px;">
-                    <!-- プログレスバーはこの中に動的に生成されます -->
-                </div>
-
-                <div id="value-list" class="value-list"></div>
-
-                <div style="margin-top: 35px;">
-                    <h3 style="color: var(--accent); margin-bottom: 10px;">あなたのビッグ3を選択</h3>
-                    <p style="color: var(--text-dim); font-size: 0.95rem;">特に大切な3つを選んでください（価値のテキスト部分をクリック）</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 今ここ自分セクション -->
-        <div id="now-section" class="section">
-            <div class="card">
-                <h2>今ここ自分</h2>
-                <p style="color: var(--text-dim); margin-bottom: 30px;">
-                    過去でも未来でもなく、今この瞬間に意識を向けましょう
-                </p>
-
-                <button class="button" id="record-now-btn" style="font-size: 1.8rem; padding: 30px 60px; border-radius: 30px;">
-                    今・ここ・自分
-                </button>
-
-                <div style="margin-top: 40px;">
-                    <h3 style="color: var(--secondary); margin-bottom: 20px;">今ここカウント</h3>
-                    <div class="stat-card" style="background: var(--gradient-3);">
-                        <div class="stat-number" id="now-count">0</div>
-                        <div class="stat-label">今週の「今ここ自分」回数</div>
+                        <div id="emotion-history" style="margin-top: 35px;"></div>
                     </div>
                 </div>
 
-                <div style="margin-top: 40px; background: var(--surface-lighter); padding: 25px; border-radius: 15px;">
-                    <h3 style="color: var(--accent); margin-bottom: 20px;">簡単な瞑想ガイド</h3>
-                    <div style="line-height: 2;">
-                        <p>🌸 1. 深呼吸を3回</p>
-                        <p>🌸 2. 「今」と心の中で唱える</p>
-                        <p>🌸 3. 「ここ」と意識を体に向ける</p>
-                        <p>🌸 4. 「自分」と自分の存在を感じる</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <!-- ご機嫌の価値セクション -->
+                <div id="value-section" class="section">
+                    <div class="card">
+                        <h2>ご機嫌でいると何が良い？</h2>
+                        <p style="color: var(--text-dim); margin-bottom: 25px;">
+                            価値リストは累積されます。10→30→50→100→300個でレベルアップ！
+                        </p>
 
-        <!-- 統計セクション -->
-        <div id="stats-section" class="section">
-            <div class="card">
-                <h2>あなたのご機嫌統計</h2>
-                <p id="week-period" style="color: var(--text-dim); margin-bottom: 25px; font-size: 1.05rem;"></p>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-emotions">0</div>
-                        <div class="stat-label">今週の感情記録</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="positive-ratio">0%</div>
-                        <div class="stat-label">今週の快の割合</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-values">0</div>
-                        <div class="stat-label">累積価値リスト</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="now-count-stats">0</div>
-                        <div class="stat-label">今週の今ここ回数</div>
+                        <div class="input-group">
+                            <label>ご機嫌の価値を入力</label>
+                            <input type="text" id="value-input" placeholder="例：アイデアが湧いてくる">
+                        </div>
+
+                        <button class="button" id="add-value-btn">価値を追加</button>
+
+                        <div id="value-progress-container" style="margin-top: 25px;">
+                            <!-- プログレスバーはこの中に動的に生成されます -->
+                        </div>
+
+                        <div id="value-list" class="value-list"></div>
+
+                        <div style="margin-top: 35px;">
+                            <h3 style="color: var(--accent); margin-bottom: 10px;">あなたのビッグ3を選択</h3>
+                            <p style="color: var(--text-dim); font-size: 0.95rem;">特に大切な3つを選んでください（価値のテキスト部分をクリック）</p>
+                        </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 35px;">
-                    <h3 style="color: var(--secondary); margin-bottom: 20px;">今週の快・不快の内訳</h3>
-                    <div id="emotion-trend"></div>
+                <!-- 今ここ自分セクション -->
+                <div id="now-section" class="section">
+                    <div class="card">
+                        <h2>今ここ自分</h2>
+                        <p style="color: var(--text-dim); margin-bottom: 30px;">
+                            過去でも未来でもなく、今この瞬間に意識を向けましょう
+                        </p>
+
+                        <button class="button" id="record-now-btn" style="font-size: 1.8rem; padding: 30px 60px; border-radius: 30px;">
+                            今・ここ・自分
+                        </button>
+
+                        <div style="margin-top: 40px;">
+                            <h3 style="color: var(--secondary); margin-bottom: 20px;">今ここカウント</h3>
+                            <div class="stat-card" style="background: var(--gradient-3);">
+                                <div class="stat-number" id="now-count">0</div>
+                                <div class="stat-label">今週の「今ここ自分」回数</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 40px; background: var(--surface-lighter); padding: 25px; border-radius: 15px;">
+                            <h3 style="color: var(--accent); margin-bottom: 20px;">簡単な瞑想ガイド</h3>
+                            <div style="line-height: 2;">
+                                <p>🌸 1. 深呼吸を3回</p>
+                                <p>🌸 2. 「今」と心の中で唱える</p>
+                                <p>🌸 3. 「ここ」と意識を体に向ける</p>
+                                <p>🌸 4. 「自分」と自分の存在を感じる</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div style="margin-top: 35px;">
-                    <h3 style="color: var(--accent); margin-bottom: 20px;">過去の週の記録</h3>
-                    <div id="history-weeks"></div>
-                </div>
-            </div>
-        </div>
+                <!-- 統計セクション -->
+                <div id="stats-section" class="section">
+                    <div class="card">
+                        <h2>あなたのご機嫌統計</h2>
+                        <p id="week-period" style="color: var(--text-dim); margin-bottom: 25px; font-size: 1.05rem;"></p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="total-emotions">0</div>
+                                <div class="stat-label">今週の感情記録</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="positive-ratio">0%</div>
+                                <div class="stat-label">今週の快の割合</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="total-values">0</div>
+                                <div class="stat-label">累積価値リスト</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="now-count-stats">0</div>
+                                <div class="stat-label">今週の今ここ回数</div>
+                            </div>
+                        </div>
 
-        <!-- 設定セクション -->
-        <div id="settings-section" class="section">
-            <div class="card">
-                <h2>設定</h2>
-                
-                <div style="margin-bottom: 35px; background: var(--surface-lighter); padding: 25px; border-radius: 15px;">
-                    <h3 style="color: var(--secondary); margin-bottom: 15px;">📁 データのバックアップ</h3>
-                    <p style="color: var(--text-dim); margin-bottom: 20px;">
-                        データをファイルとして保存し、後で復元できます
-                    </p>
-                    <button class="button" id="export-btn">データをエクスポート</button>
+                        <div style="margin-top: 35px;">
+                            <h3 style="color: var(--secondary); margin-bottom: 20px;">今週の快・不快の内訳</h3>
+                            <div id="emotion-trend"></div>
+                        </div>
+
+                        <div style="margin-top: 35px;">
+                            <h3 style="color: var(--accent); margin-bottom: 20px;">過去の週の記録</h3>
+                            <div id="history-weeks"></div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div style="margin-bottom: 35px; background: var(--surface-lighter); padding: 25px; border-radius: 15px;">
-                    <h3 style="color: var(--secondary); margin-bottom: 15px;">📥 データの復元</h3>
-                    <p style="color: var(--text-dim); margin-bottom: 20px;">
-                        エクスポートしたファイルからデータを復元します
-                    </p>
-                    <input type="file" id="import-file" accept=".json" style="display: none;">
-                    <button class="button" id="import-btn">
-                        データをインポート
-                    </button>
+
+                <!-- 設定セクション -->
+                <div id="settings-section" class="section">
+                    <div class="card">
+                        <h2>設定</h2>
+                        
+                        <div style="margin-bottom: 35px; background: var(--surface-lighter); padding: 25px; border-radius: 15px;">
+                            <h3 style="color: var(--secondary); margin-bottom: 15px;">📁 データのバックアップ</h3>
+                            <p style="color: var(--text-dim); margin-bottom: 20px;">
+                                データをファイルとして保存し、後で復元できます
+                            </p>
+                            <button class="button" id="export-btn">データをエクスポート</button>
+                        </div>
+                        
+                        <div style="margin-bottom: 35px; background: var(--surface-lighter); padding: 25px; border-radius: 15px;">
+                            <h3 style="color: var(--secondary); margin-bottom: 15px;">📥 データの復元</h3>
+                            <p style="color: var(--text-dim); margin-bottom: 20px;">
+                                エクスポートしたファイルからデータを復元します
+                            </p>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                            <button class="button" id="import-btn">
+                                データをインポート
+                            </button>
+                        </div>
+                        
+                        <div style="background: rgba(255, 107, 107, 0.1); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 107, 107, 0.3);">
+                            <h3 style="color: var(--warning); margin-bottom: 15px;">⚠️ データのリセット</h3>
+                            <p style="color: var(--text-dim); margin-bottom: 20px;">
+                                全てのデータを削除します（元に戻せません）
+                            </p>
+                            <button class="button" id="reset-btn" style="background: var(--gradient-2);">
+                                全データを削除
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
-                <div style="background: rgba(255, 107, 107, 0.1); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 107, 107, 0.3);">
-                    <h3 style="color: var(--warning); margin-bottom: 15px;">⚠️ データのリセット</h3>
-                    <p style="color: var(--text-dim); margin-bottom: 20px;">
-                        全てのデータを削除します（元に戻せません）
-                    </p>
-                    <button class="button" id="reset-btn" style="background: var(--gradient-2);">
-                        全データを削除
-                    </button>
-                </div>
+
             </div>
         </div>
     </div>
 
     <script>
+        // --- グローバル変数と定数 ---
+        const navButtons = Array.from(document.querySelectorAll('.nav-button'));
+        const sectionIds = navButtons.map(btn => btn.dataset.section);
+        const sectionsContainer = document.querySelector('.sections-container');
+        const sections = document.querySelectorAll('.section');
+
         // --- 初期化とデータ管理 ---
         let appData = loadData() || {
             emotions: [],
@@ -954,10 +1013,10 @@
         function checkWeeklyReset() {
             const currentWeek = getWeekKey();
             if (appData.weeklyData.current !== currentWeek) {
-                if (appData.weeklyData.current) {
+                if (appData.weeklyData.current && (appData.emotions.length > 0 || appData.nowCount > 0)) {
                     appData.weeklyData.history[appData.weeklyData.current] = {
                         emotions: [...appData.emotions],
-                        values: [...appData.values],
+                        values: [...appData.values], // 週リセット時に価値も保存
                         big3: [...appData.big3],
                         nowCount: appData.nowCount,
                         endDate: new Date().toISOString()
@@ -965,11 +1024,7 @@
                 }
                 appData.weeklyData.current = currentWeek;
                 appData.nowCount = 0;
-                appData.emotions = appData.emotions.filter(e => {
-                    const emotionDate = new Date(e.timestamp);
-                    const weekStart = new Date(currentWeek);
-                    return emotionDate >= weekStart;
-                });
+                appData.emotions = []; // 感情記録は週ごとにリセット
                 showNotification('✨ 新しい週が始まりました！価値リストは継続されます。');
                 saveData();
             }
@@ -978,12 +1033,18 @@
         // --- UI更新関数 ---
         function showSection(sectionId) {
             checkWeeklyReset();
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+            const sectionIndex = sectionIds.indexOf(sectionId);
+            if (sectionIndex === -1) return;
 
-            document.getElementById(`${sectionId}-section`).classList.add('active');
+            // セクションをスライド
+            const percentage = sectionIndex * (100 / sectionIds.length);
+            sectionsContainer.style.transform = `translateX(-${percentage}%)`;
+
+            // ナビゲーションボタンを更新
+            navButtons.forEach(b => b.classList.remove('active'));
             document.querySelector(`.nav-button[data-section="${sectionId}"]`).classList.add('active');
 
+            // 必要に応じて各セクションのデータを更新
             if (sectionId === 'stats') updateStats();
             if (sectionId === 'now') document.getElementById('now-count').textContent = appData.nowCount;
         }
@@ -1004,7 +1065,7 @@
                                 <span style="color: var(--text-dim); font-size: 0.85rem; display: block;">${e.displayTime || new Date(e.timestamp).toLocaleString('ja-JP')}</span>
                             </div>
                         </div>
-                        ${e.detail ? `<p style="margin-top: 10px; line-height: 1.6; padding-left: 50px;">${e.detail}</p>` : ''}
+                        ${e.detail ? `<p style="margin-top: 10px; line-height: 1.6; padding-left: 50px; word-break: break-word;">${e.detail.replace(/\n/g, '<br>')}</p>` : ''}
                         <button class="delete-button">×</button>
                     </div>
                 `).join('') : '<p style="color: var(--text-dim); margin-top: 10px; text-align: center;">まだ記録がありません</p>');
@@ -1042,13 +1103,16 @@
                 progressText = 'マスターレベル達成！';
             }
             
+            // レスポンシブ改行対策済みのHTML
             container.innerHTML = `
-                <p style="font-size: 1.1rem; font-weight: 500; margin-bottom: 10px;">
-                    累積価値リスト（<span style="color: var(--accent); font-size: 1.3rem; font-weight: 700;">${count}</span>個）
-                    <span style="margin-left: 20px; background: var(--gradient-warm); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">
+                <div class="value-progress-header">
+                    <p class="value-progress-text">
+                        累積価値リスト（<span class="value-count">${count}</span>個）
+                    </p>
+                    <span class="value-level-badge">
                         ${levelEmojis[currentLevel]} ${levelName}
                     </span>
-                </p>
+                </div>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: ${progress}%"></div>
                 </div>
@@ -1081,11 +1145,11 @@
                 const negativeCount = weeklyEmotions.length - positiveCount;
                 const positivePercent = (positiveCount / weeklyEmotions.length) * 100;
                 trend.innerHTML = `
-                    <div style="display: flex; justify-content: space-around; margin-bottom: 25px;">
-                        <div style="text-align: center; background: var(--surface-lighter); padding: 25px; border-radius: 15px; flex: 1; margin-right: 10px;">
+                    <div style="display: flex; justify-content: space-around; margin-bottom: 25px; gap: 15px;">
+                        <div style="text-align: center; background: var(--surface-lighter); padding: 25px; border-radius: 15px; flex: 1;">
                             <div style="font-size: 2.5rem;">😊</div><div style="font-size: 2rem; font-weight: 700; color: var(--success);">${positiveCount}回</div><div style="color: var(--text-dim); font-weight: 500;">快</div>
                         </div>
-                        <div style="text-align: center; background: var(--surface-lighter); padding: 25px; border-radius: 15px; flex: 1; margin-left: 10px;">
+                        <div style="text-align: center; background: var(--surface-lighter); padding: 25px; border-radius: 15px; flex: 1;">
                             <div style="font-size: 2.5rem;">😔</div><div style="font-size: 2rem; font-weight: 700; color: var(--warning);">${negativeCount}回</div><div style="color: var(--text-dim); font-weight: 500;">不快</div>
                         </div>
                     </div>
@@ -1105,13 +1169,15 @@
                     weekEndHist.setDate(weekEndHist.getDate() + 6);
                     const positiveCountHist = weekData.emotions.filter(e => e.name === '快').length;
                     const positiveRatioHist = weekData.emotions.length > 0 ? Math.round((positiveCountHist / weekData.emotions.length) * 100) : 0;
+                    const valueCountHist = weekData.values ? weekData.values.length : 0;
+                    const nowCountHist = weekData.nowCount || 0;
                     return `<div class="card" style="margin-top: 25px; background: var(--surface-lighter);">
                                 <h4 style="color: var(--accent); margin-bottom: 20px; font-size: 1.2rem;">📅 ${weekStartHist.toLocaleDateString('ja-JP')} 〜 ${weekEndHist.toLocaleDateString('ja-JP')}</h4>
                                 <div class="stats-grid" style="grid-template-columns: 1fr 1fr; gap: 10px;">
                                     <div class="stat-card" style="padding: 15px;"><div class="stat-number" style="font-size: 1.5rem;">${weekData.emotions.length}</div><div class="stat-label">感情記録</div></div>
                                     <div class="stat-card" style="padding: 15px;"><div class="stat-number" style="font-size: 1.5rem;">${positiveRatioHist}%</div><div class="stat-label">快の割合</div></div>
-                                    <div class="stat-card" style="padding: 15px;"><div class="stat-number" style="font-size: 1.5rem;">${weekData.values.length}</div><div class="stat-label">累積価値</div></div>
-                                    <div class="stat-card" style="padding: 15px;"><div class="stat-number" style="font-size: 1.5rem;">${weekData.nowCount}</div><div class="stat-label">今ここ</div></div>
+                                    <div class="stat-card" style="padding: 15px;"><div class="stat-number" style="font-size: 1.5rem;">${valueCountHist}</div><div class="stat-label">累積価値</div></div>
+                                    <div class="stat-card" style="padding: 15px;"><div class="stat-number" style="font-size: 1.5rem;">${nowCountHist}</div><div class="stat-label">今ここ</div></div>
                                 </div>
                             </div>`;
                 }).join('');
@@ -1223,7 +1289,7 @@
             notification.textContent = message;
             document.body.appendChild(notification);
             setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.5s forwards';
+                notification.style.animation = 'slideOutUp 0.5s forwards';
                 setTimeout(() => notification.remove(), 500);
             }, 3000);
         }
@@ -1237,7 +1303,7 @@
             setTimeout(() => {
                 notification.style.animation = 'levelUpFade 0.5s ease-out forwards';
                 setTimeout(() => notification.remove(), 500);
-            }, 2000);
+            }, 2500);
         }
 
         // --- 設定関連の関数 ---
@@ -1262,7 +1328,6 @@
                     const imported = JSON.parse(e.target.result);
                     appData = imported;
                     saveData();
-                    checkWeeklyReset();
                     initializeAppState();
                     showNotification('📥 データをインポートしました');
                 } catch (error) {
@@ -1273,8 +1338,10 @@
             event.target.value = '';
         }
         function resetAllData() {
-            console.log("全データリセットが要求されました。安全のため処理を中断しました。");
-            showNotification('リセット機能は現在無効です。', 'error');
+            if (confirm('本当にすべてのデータをリセットしますか？この操作は元に戻せません。')) {
+                 localStorage.removeItem('gokigenMasterData');
+                 window.location.reload();
+            }
         }
 
         // --- イベントリスナー設定 ---
@@ -1285,7 +1352,7 @@
                 }
             });
 
-            document.querySelector('#emotion-section').addEventListener('click', (e) => {
+            document.getElementById('emotion-section').addEventListener('click', (e) => {
                 const button = e.target.closest('.emotion-button');
                 if (button) {
                     document.querySelectorAll('.emotion-button').forEach(b => b.classList.remove('selected'));
@@ -1326,27 +1393,20 @@
                 }
 
                 if (valueTag) {
-                    toggleBig3(parseInt(valueTag.dataset.index, 10));
+                    // ビッグ3選択はテキスト部分をクリックしたときだけにする
+                    if(!target.matches('.delete-button')) {
+                        toggleBig3(parseInt(valueTag.dataset.index, 10));
+                    }
                 }
                 
-                clickedItem.classList.toggle('show-delete');
+                // 削除ボタン表示のトグル
+                if (emotionRecord) {
+                    clickedItem.classList.toggle('show-delete');
+                }
             });
-        }
-        
-        // --- アプリケーション初期化 ---
-        function initializeAppState() {
-            checkWeeklyReset();
-            displayEmotionHistory();
-            displayValues();
-        }
-        
-        initializeAppState();
-        setupEventListeners();
 
-    </script>
-</body>
-</html>
-
-
+            // スワイプイベント
+            let touchStartX = 0;
+            �
 </body>
 </html>
