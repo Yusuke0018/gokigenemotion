@@ -405,6 +405,7 @@
 
         .value-tag {
             padding: 12px 22px;
+            padding-right: 22px; /* 削除ボタンのスペースを確保 */
             background: var(--surface-light);
             border-radius: 25px;
             font-size: 0.95rem;
@@ -417,6 +418,10 @@
             cursor: pointer;
             border: 2px solid transparent;
             position: relative; /* For delete button positioning */
+        }
+
+        .value-tag.show-delete {
+            padding-right: 45px; /* 削除ボタン表示時は余白を増やす */
         }
 
         .value-tag:hover {
@@ -549,6 +554,13 @@
             justify-content: center;
             transition: all 0.3s ease;
             z-index: 10;
+        }
+
+        .value-tag .delete-button {
+            width: 24px;
+            height: 24px;
+            font-size: 1rem;
+            right: 8px;
         }
         
         .show-delete .delete-button {
@@ -1380,26 +1392,34 @@
                 const emotionRecord = target.closest('.emotion-record');
                 const clickedItem = valueTag || emotionRecord;
 
+                // 他のアイテムの削除ボタンを非表示にする
                 document.querySelectorAll('.show-delete').forEach(el => {
                     if (el !== clickedItem) el.classList.remove('show-delete');
                 });
                 
                 if (!clickedItem) return;
 
+                // 削除ボタンがクリックされた場合
                 if (target.matches('.delete-button')) {
+                    event.stopPropagation();
                     if (valueTag) deleteValue(parseInt(valueTag.dataset.index, 10));
                     if (emotionRecord) deleteEmotion(emotionRecord.dataset.timestamp);
                     return;
                 }
 
-                if (valueTag) {
-                    // ビッグ3選択はテキスト部分をクリックしたときだけにする
-                    if(!target.matches('.delete-button')) {
+                // 価値タグがクリックされた場合
+                if (valueTag && !target.matches('.delete-button')) {
+                    // 削除ボタンが表示されていない場合は表示する
+                    if (!valueTag.classList.contains('show-delete')) {
+                        valueTag.classList.add('show-delete');
+                    } else {
+                        // 削除ボタンが表示されている場合は、ビッグ3の選択をトグル
                         toggleBig3(parseInt(valueTag.dataset.index, 10));
+                        valueTag.classList.remove('show-delete');
                     }
                 }
                 
-                // 削除ボタン表示のトグル
+                // 感情記録の削除ボタン表示のトグル
                 if (emotionRecord) {
                     clickedItem.classList.toggle('show-delete');
                 }
