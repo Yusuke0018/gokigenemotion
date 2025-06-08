@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <!-- 
-    ご機嫌マスター - 非認知脳トレーニングアプリ（改修版）
+    ご機嫌マスター - 非認知脳トレーニングアプリ（ファビコン完全修正版）
     
     【概要】
     辻秀一先生の理論に基づく3つの基本練習を実践するWebアプリ
@@ -11,10 +11,10 @@
     - 今ここ自分を意識する
     
     【主な改修点】
-    1. ファビコン修正：スマホ等でファビコンが正しく表示されない問題を修正。SVGアイコンと互換性の高いPNGアイコン設定に変更しました。
-    2. レスポンシブ改善：スマホ表示でレベル名が改行される問題を修正しました。
-    3. スワイプナビゲーション：左右のスワイプでセクションを移動できるようになりました。
-    4. UI/UX改善：セクション間の移動をスライドアニメーションに変更し、より滑らかな操作感を実現しました。
+    1. ファビコン完全修正：すべてのアイコンをdata URLで埋め込み、外部依存を排除
+    2. レスポンシブ改善：スマホ表示でレベル名が改行される問題を修正
+    3. スワイプナビゲーション：左右のスワイプでセクションを移動可能
+    4. UI/UX改善：セクション間の移動をスライドアニメーションに変更
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -22,23 +22,23 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>ご機嫌マスター</title>
 
-    <!-- --- ファビコンとPWAアイコン設定 (修正版) --- -->
-    <!-- テーマカラー -->
+    <!-- ファビコンとPWAアイコン設定 (完全修正版) -->
     <meta name="theme-color" content="#ff6b6b">
 
-    <!-- メインのSVGアイコン (最新のブラウザ向け) -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23ff6b6b'/%3E%3Cpath d='M9 18 C11 23, 21 23, 23 18' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='14' r='2.5' fill='white'/%3E%3Ccircle cx='20' cy='14' r='2.5' fill='white'/%3E%3C/svg%3E">
-
-    <!-- iOSのホーム画面用アイコン -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://placehold.co/180x180/ff6b6b/ffffff?text=%E2%98%85&font=noto">
-
-    <!-- その他のPNGアイコン (下位互換性のため) -->
-    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/ff6b6b/ffffff?text=%E2%98%85&font=noto">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://placehold.co/16x16/ff6b6b/ffffff?text=%E2%98%85&font=noto">
+    <!-- メインのファビコン (SVG) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff6b6b'/%3E%3Ccircle cx='10' cy='12' r='2' fill='white'/%3E%3Ccircle cx='22' cy='12' r='2' fill='white'/%3E%3Cpath d='M8 20 Q16 26 24 20' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
     
-    <!-- PWAマニフェストファイル -->
-    <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22%E3%81%94%E6%A9%9F%E5%AB%8C%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%22%2C%22short_name%22%3A%22%E3%81%94%E6%A9%9F%E5%AB%8C%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231a1a2e%22%2C%22theme_color%22%3A%22%231a1a2e%22%2C%22description%22%3A%22%E9%9D%9E%E8%AA%8D%E7%9F%A5%E8%84%B3%E3%82%92%E9%8D%9B%E3%81%88%E3%81%A6%E3%81%94%E6%A9%9F%E5%AB%8C%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A//placehold.co/192x192/ff6b6b/ffffff%3Ftext%3D%25E2%2598%2585%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22https%3A//placehold.co/512x512/ff6b6b/ffffff%3Ftext%3D%25E2%2598%2585%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
-    <!-- --- ファビコン設定ここまで --- -->
+    <!-- フォールバック用PNG (16x16) -->
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABaElEQVQ4y6WTsUsCURzHP++dHqZlUA5BEATRUEPQUlNDf0BDU5tLU39Af0FTW0tDQ0NDQ0tDRBAEQVBDkHaYpenp3fvdEHfqnZcUfeDx3o/3fb/f7/t7T4QQ/DNS/4ClpSWur69RShHHMXd3d2RZRpqmFEURQgharRbD4RCAwWDAyckJJycnb7NYW1vDtm1qtRpSSgCEECRJwtPTE0opPM9jenoaXdfZ3t5ma2vr3QXSsizK5TKGYSClJAxDFEW5Aay8XCOOI4IgIAgCms0m9Xqd5eVlzs/PubGxMQKYTCbTbrdDCIHneQD4vk+/3ycIAqSUFItF6vU6AJqm0el0GA6Hjkwmk1YURalUKgRBwOPjIx8tyzLm5+fZ2dlhYWGBy8tLT05NTbmiKOoPiZ+WpmmsrKywurpKvV6/VRzHsYui6GutVisqisL9/T2u65IkCalSqRgA1WqVXq+HZVn0+308zyOXywFwdnb2kfL2CXsBy5VbEJGJKz0AAAAASUVORK5CYII=">
+    
+    <!-- フォールバック用PNG (32x32) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAB8klEQVRYw+2XP0tCURjGf+cqaWkpQRAEQTQ0BDU1NfQFmpr6Ak1tbW0NDTU0NDQ0tDQEQRAEQdBgaWmaN+/7nhBuXu+9V6mg6IEDh3POe57n/Z/3XCGEYJaS+2vH5uYmtVqNTqeDEIJut0u9XieKIjqdDlEUIYSg2WzSbDYB6Ha7VCoVKpXKj5usra3hOA6WZSGlBEAIQRAEPD8/I4TA8zxmZ2dRVZWtrS22t7fHBiBt28a2bQzDQEpJu90mDMOxAPJ8nyAICAKBWq2iaRqLi4scHR3x4+BI2bZNo9HA9308zwOg1WrR7XbxfR8pJaZpomkaALlcjlqtRrPZtGQul7MURZm4ruu0Wi0eHh7GVkFRFBYWFtjZ2WF5eZmTkxNPzs3NOYqiTI38qxRFYX19nY2NDTRNO5O5XM4tFAqq4zh/mjyTyWAYBqurq6ytrXF8fOwpisKvfcF+v0+hUGB/f5/9/X2Ojo48ubCw4CqKkvqWYRjy9PREGIaJaxRFYXl5mZ2dHdbX1zk5OfGkbduuZVkJg263S7VapdfrpSaXUrK0tMTu7i5ra2ucnp56yrSP4cBrTE0+MDjl5uZmotl0cnQqlYrqOE6/3+8jhKDX61Gr1eh0OvR6PaIoolarUa/XAeh0OpTLZcrl8oTFcnx8DPgCCBFUv3o3yxgAAAAASUVORK5CYII=">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAJFElEQVR4nO3dfYxcVR3G8e/MzO7s7uxud7vdbruttKVQWqBAKVBeBAQBQUQUBUQRRRRQQAQVFRVFUVFRQUBBEQRFBERAeRGQF6EgLdCWltLSd7rb7vZ9d3d2d2dn5vrHuUu3293Z2Zl77z1zn0+yadrM3Ht+bZ49c+65554jAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEKBU2B2AH5RS5wKnAh1hd0W0a8AyYJoxZl3YnfGL5E4DlVJp4FrgKqAx7P6I3YaBG4wxD4TdET9ITg1CSilgLvBT4OSw+yP22Qg8BPzCGLMh7M54RXJiH0qpLPBp4CvAgWH3RxzXbuBh4HfGmFfD7kytSDlGoJQ6APgMcDmQDbk7Ii4l4EngTmPMC2F3phqSlEMpNRP4HHAZkAm5OyKuBuABp5yPhd2ZSkhS7kMpNRn4MPBxYEbI3RFxvQS8A/zXGPNG2J0ZjYzQFVBKHQ6cDVwETA+5OyJKCsBDwB3GmLfD7sxIJCmroJTqAD4AnAccEnJ3RJRsBu4G7jLG9IXdGTdJympQSs0BLgAuxO4NUfEzCDwP3GeMeTbsznhBkrJGnFmQdwPnAu8D0uH2SMTAPuBJ4C5jzOKwO1MLkpQ+UEq1Ax8EPoCdMJAJt0ciQnLAQuAeY8zTYXfGD5KUPnOmBp4FvB84C2gKt0ciJDuBp4AHjDGLwu6M3yQpA6SUagJOxo7e5wAtIXdJBGsn8F/gMWPMkrA7EyRJyhA4I/cJwJnAWUA3dkKBiKdtwEvA48DzxpgdIXcnFJKUIVNKpYDZwAnAccDxQCvRWzsphtpLRuQl4DVn5F1ujOkPt0vRIEkZQc6U53bsaNQJHIRN0JnYFaBt2IRtlhE8MAO422wA3sWmXh92xF1mjOkJuW+RJkkZQ87KmWnYEftA4ADnMdX5cx/29ufNzmM7sAOQKWnVMdhE7HEeG3E2cxpjSmF2LI7+H0+Dl0AQx2AyAAAAAElFTkSuQmCC">
+
+    <!-- PWAマニフェスト (シンプル版) -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi44GU5qmf5auM44Oe44K544K/44O8Iiwic2hvcnRfbmFtZSI6IuOBlOapn+WrjCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMWExYTJlIiwidGhlbWVfY29sb3IiOiIjZmY2YjZiIn0=">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
