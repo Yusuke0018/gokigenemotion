@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <!-- 
-    ご機嫌マスター - 非認知脳トレーニングアプリ（リデザイン・アイコン設定版）
+    ご機嫌マスター - 非認知脳トレーニングアプリ（リデザイン・アイコン設定修正版）
     
     【概要】
     辻秀一先生の理論に基づく3つの基本練習を実践するWebアプリ
@@ -19,8 +19,7 @@
     週次で自動リセット、過去データは保存
 
     【主な修正点】
-    1. ホーム画面用アイコンの設定：スマホのホーム画面に追加した際のアイコンを追加。
-    2. Web App Manifestの追加：「ホーム画面に追加」機能を強化し、アプリのような挙動を促進。
+    1. Web App Manifestの修正：「ホーム画面に追加」した際のアプリ名が文字化けする問題を修正。
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -29,11 +28,11 @@
     <meta name="theme-color" content="#1a1a2e">
     <title>ご機嫌マスター</title>
 
-    <!-- ホーム画面アイコンとPWAマニフェスト設定 -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://placehold.co/180x180/ff6b6b/ffffff?text=😊&font=noto">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/ff6b6b/ffffff?text=😊&font=noto">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://placehold.co/192x192/ff6b6b/ffffff?text=😊&font=noto">
-    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoi44GT5qGl5qCF44Oe44K544K/44O8IiwiYWxzaG9ydF9uYW1lIjoi44GT5qGl5qCFZCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMWExYTJlIiwidGhlbWVfY29sb3IiOiIjMWExYTJlIiwiZGVzY3JpcHRpb24iOiLmmL/loLFzaOODhOODs+ODiOODquODvOODiCIsImljb25zIjpbeyJzcmMiOiJodHRwczovL3BsYWNlaG9sZC5jby8xOTJ4MTkyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTclOEEmZm9udD1ub3RvIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyJ9LHsic3JjIjoiaHR0cHM6Ly9wbGFjZWtoZ3VsZC5jby81MTJ4NTEyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTclOEEmZm9udD1ub3RvIiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3BuZyJ9XX0=">
+    <!-- ホーム画面アイコンとPWAマニフェスト設定 (修正版) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://placehold.co/180x180/ff6b6b/ffffff?text=%F0%9F%98%8A&font=noto">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/ff6b6b/ffffff?text=%F0%9F%98%8A&font=noto">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://placehold.co/192x192/ff6b6b/ffffff?text=%F0%9F%98%8A&font=noto">
+    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoi44GT5qGl5qCF44Oe44K544K/44O8Iiwic2hvcnRfbmFtZSI6IuOBk+ahpeahheODnueCuei/vOODvCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMWExYTJlIiwidGhlbWVfY29sb3IiOiIjMWExYTJlIiwiZGVzY3JpcHRpb24iOiLmmL/loLFzaOODhOODs+ODiOOCouODvOODiOOBk+ahpeahheOBjOODvOOCouODg+ODlOODqyIsImljb25zIjpbeyJzcmMiOiJodHRwczovL3BsYWNlaG9sZC5jby8xOTJ4MTkyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTglOUEmZm9udD1ub3RvIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyJ9LHsic3JjIjoiaHR0cHM6Ly9wbGFjZWtoZ3VsZC5jby81MTJ4NTEyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTglOUEmZm9udD1ub3RvIiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3BuZyJ9XX0=">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
@@ -1347,6 +1346,7 @@
     </script>
 </body>
 </html>
+
 
 </body>
 </html>
