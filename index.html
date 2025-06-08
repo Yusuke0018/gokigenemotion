@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <!-- 
-    ご機嫌マスター - 非認知脳トレーニングアプリ（リデザイン・バグ修正版）
+    ご機嫌マスター - 非認知脳トレーニングアプリ（リデザイン・アイコン設定版）
     
     【概要】
     辻秀一先生の理論に基づく3つの基本練習を実践するWebアプリ
@@ -19,10 +19,8 @@
     週次で自動リセット、過去データは保存
 
     【主な修正点】
-    1. イベント処理の安定化：`onclick`属性からイベントデリゲーション方式に変更し、ボタンの応答性を改善。
-    2. `confirm()`の削除：動作を妨げていた確認ダイアログを削除。
-    3. UX改善：削除ボタンを、項目タップ時にのみ表示するように変更。
-    4. 週計算の修正：タイムゾーン問題を解消し、常に月曜日始まりで週を正しく計算するように修正。
+    1. ホーム画面用アイコンの設定：スマホのホーム画面に追加した際のアイコンを追加。
+    2. Web App Manifestの追加：「ホーム画面に追加」機能を強化し、アプリのような挙動を促進。
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -30,6 +28,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a2e">
     <title>ご機嫌マスター</title>
+
+    <!-- ホーム画面アイコンとPWAマニフェスト設定 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://placehold.co/180x180/ff6b6b/ffffff?text=😊&font=noto">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/ff6b6b/ffffff?text=😊&font=noto">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://placehold.co/192x192/ff6b6b/ffffff?text=😊&font=noto">
+    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoi44GT5qGl5qCF44Oe44K544K/44O8IiwiYWxzaG9ydF9uYW1lIjoi44GT5qGl5qCFZCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMWExYTJlIiwidGhlbWVfY29sb3IiOiIjMWExYTJlIiwiZGVzY3JpcHRpb24iOiLmmL/loLFzaOODhOODs+ODiOODquODvOODiCIsImljb25zIjpbeyJzcmMiOiJodHRwczovL3BsYWNlaG9sZC5jby8xOTJ4MTkyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTclOEEmZm9udD1ub3RvIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyJ9LHsic3JjIjoiaHR0cHM6Ly9wbGFjZWtoZ3VsZC5jby81MTJ4NTEyL2ZmNmI2Yi9mZmZmZmY/dGV4dD0lRjAlOUYlOTclOEEmZm9udD1ub3RvIiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3BuZyJ9XX0=">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
 
@@ -239,15 +244,16 @@
             font-size: 1.5rem;
         }
 
-        .emotion-grid {
+        .emotion-main-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
         }
 
         .emotion-button {
-            padding: 20px;
+            padding: 50px;
+            font-size: 3.5rem;
             background: var(--surface-light);
             border: 3px solid transparent;
             border-radius: 20px;
@@ -255,13 +261,17 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
-            font-size: 1.3rem;
             font-weight: 500;
             position: relative;
             overflow: hidden;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             backdrop-filter: blur(5px);
+        }
+        .emotion-button > span {
+            font-size: 1.6rem;
+            margin-top: 10px;
+            display: block;
         }
 
         .emotion-button::after {
@@ -523,9 +533,8 @@
             box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
         }
 
-        /* 削除ボタンのスタイル (修正) */
         .delete-button {
-            display: none; /* 初期状態では非表示 */
+            display: none;
             position: absolute;
             right: 10px;
             top: 50%;
@@ -544,7 +553,6 @@
             z-index: 10;
         }
         
-        /* show-deleteクラスを持つ親要素内の削除ボタンを表示 */
         .show-delete .delete-button {
             display: flex;
         }
@@ -555,13 +563,12 @@
             transform: translateY(-50%) scale(1.1);
         }
 
-        /* 感情記録のスタイル */
         .emotion-record {
             padding: 15px 20px;
             background: var(--surface-lighter);
             border-radius: 15px;
             margin-top: 15px;
-            position: relative; /* 削除ボタンの配置基準 */
+            position: relative;
             transition: all 0.3s ease;
             border: 2px solid transparent;
             cursor: pointer;
@@ -573,7 +580,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* スクロールバーのカスタマイズ */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -592,7 +598,6 @@
             background: var(--primary);
         }
 
-        /* 通知のスタイル */
         .notification {
             position: fixed;
             top: 20px;
@@ -638,63 +643,83 @@
         }
 
         @keyframes levelUpPop {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         @keyframes levelUpFade {
-            from {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
+            from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            to { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
         }
 
         @keyframes particleFly {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-500px) rotate(720deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-500px) rotate(720deg); opacity: 0; }
         }
 
-        /* レスポンシブデザイン */
+        /* --- レスポンシブデザイン --- */
+        /* タブレット & 小型デスクトップ */
         @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
             .header h1 {
                 font-size: 2.2rem;
             }
-            
-            .navigation {
-                padding: 10px;
+            .header p {
+                font-size: 1rem;
             }
-            
             .nav-button {
                 font-size: 0.85rem;
                 padding: 12px 15px;
                 min-width: 70px;
             }
-            
             .card {
                 padding: 25px;
             }
-            
+            #record-now-btn {
+                padding: 25px 50px;
+                font-size: 1.6rem;
+            }
+        }
+        
+        /* スマートフォン */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+            .card {
+                padding: 20px;
+            }
+            .emotion-main-grid {
+                grid-template-columns: 1fr; /* 快・不快ボタンを縦積みに */
+                gap: 15px;
+            }
+            .emotion-button {
+                padding: 30px;
+                font-size: 2.5rem;
+            }
+            .emotion-button > span {
+                font-size: 1.2rem;
+            }
             .stats-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr; /* 統計カードを縦積みに */
+            }
+            .button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+             #record-now-btn {
+                width: 100%;
+                padding: 20px;
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -722,12 +747,12 @@
                     まずは快か不快かに気づき、詳しく言語化しましょう
                 </p>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
-                    <button class="emotion-button" data-emoji="😊" data-name="快" style="padding: 50px; font-size: 3.5rem;">
-                        😊<br><span style="font-size: 1.6rem; margin-top: 10px; display: block;">快</span>
+                <div class="emotion-main-grid">
+                    <button class="emotion-button" data-emoji="😊" data-name="快">
+                        😊<br><span>快</span>
                     </button>
-                    <button class="emotion-button" data-emoji="😔" data-name="不快" style="padding: 50px; font-size: 3.5rem;">
-                        😔<br><span style="font-size: 1.6rem; margin-top: 10px; display: block;">不快</span>
+                    <button class="emotion-button" data-emoji="😔" data-name="不快">
+                        😔<br><span>不快</span>
                     </button>
                 </div>
 
@@ -918,19 +943,12 @@
         function getWeekKey() {
             const now = new Date();
             const monday = new Date(now);
-            const day = monday.getDay() || 7; // 日曜を7として扱う
-
-            // 週の月曜日に調整
+            const day = monday.getDay() || 7;
             monday.setDate(monday.getDate() - day + 1);
-            
-            // タイムゾーンの問題を避けるため、時刻を0に設定
             monday.setHours(0, 0, 0, 0);
-
-            // toISOString()によるタイムゾーン変換を避けるため、手動でYYYY-MM-DD形式にフォーマット
             const year = monday.getFullYear();
             const month = (monday.getMonth() + 1).toString().padStart(2, '0');
             const date = monday.getDate().toString().padStart(2, '0');
-            
             return `${year}-${month}-${date}`;
         }
 
@@ -1242,7 +1260,6 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    // ここでは確認ダイアログの代わりに即時実行します
                     const imported = JSON.parse(e.target.result);
                     appData = imported;
                     saveData();
@@ -1257,26 +1274,18 @@
             event.target.value = '';
         }
         function resetAllData() {
-            // 確認ダイアログは使わないので、もし本当にリセットさせたい場合は
-            // この機能を呼び出す前にもう一段階ユーザー操作を挟むUIを推奨します。
-            // ここでは安全のためコンソールログに留めます。
             console.log("全データリセットが要求されました。安全のため処理を中断しました。");
             showNotification('リセット機能は現在無効です。', 'error');
-            // 本当にリセットする場合:
-            // localStorage.removeItem('gokigenMasterData');
-            // location.reload();
         }
 
         // --- イベントリスナー設定 ---
         function setupEventListeners() {
-            // ナビゲーション
             document.querySelector('.navigation').addEventListener('click', (e) => {
                 if (e.target.matches('.nav-button')) {
                     showSection(e.target.dataset.section);
                 }
             });
 
-            // 感情選択
             document.querySelector('#emotion-section').addEventListener('click', (e) => {
                 const button = e.target.closest('.emotion-button');
                 if (button) {
@@ -1287,48 +1296,40 @@
             });
             document.getElementById('save-emotion-btn').addEventListener('click', saveEmotion);
 
-            // 価値追加
             document.getElementById('add-value-btn').addEventListener('click', addValue);
             document.getElementById('value-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') addValue();
             });
             
-            // 今ここ記録
             document.getElementById('record-now-btn').addEventListener('click', recordNowHere);
 
-            // 設定
             document.getElementById('export-btn').addEventListener('click', exportData);
             document.getElementById('import-btn').addEventListener('click', () => document.getElementById('import-file').click());
             document.getElementById('import-file').addEventListener('change', importData);
             document.getElementById('reset-btn').addEventListener('click', resetAllData);
 
-            // 項目リストのイベント（イベントデリゲーション）
             document.body.addEventListener('click', (event) => {
                 const target = event.target;
                 const valueTag = target.closest('.value-tag');
                 const emotionRecord = target.closest('.emotion-record');
                 const clickedItem = valueTag || emotionRecord;
 
-                // 他の項目を非アクティブ化
                 document.querySelectorAll('.show-delete').forEach(el => {
                     if (el !== clickedItem) el.classList.remove('show-delete');
                 });
                 
                 if (!clickedItem) return;
 
-                // 削除ボタンのクリック処理
                 if (target.matches('.delete-button')) {
                     if (valueTag) deleteValue(parseInt(valueTag.dataset.index, 10));
                     if (emotionRecord) deleteEmotion(emotionRecord.dataset.timestamp);
                     return;
                 }
 
-                // ビッグ3のトグル処理
                 if (valueTag) {
                     toggleBig3(parseInt(valueTag.dataset.index, 10));
                 }
                 
-                // 削除ボタンの表示/非表示をトグル
                 clickedItem.classList.toggle('show-delete');
             });
         }
@@ -1344,5 +1345,8 @@
         setupEventListeners();
 
     </script>
+</body>
+</html>
+
 </body>
 </html>
