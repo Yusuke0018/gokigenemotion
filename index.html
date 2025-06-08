@@ -253,7 +253,7 @@
         }
 
         .card h2::before {
-            content: '�';
+            content: '🎯';
             font-size: 1.5rem;
         }
 
@@ -1407,6 +1407,60 @@
 
             // スワイプイベント
             let touchStartX = 0;
-            �
+            let touchStartY = 0;
+            let isSwiping = false;
+
+            sectionsContainer.addEventListener('touchstart', e => {
+                if (e.target.closest('button, input, textarea, .value-list, .emotion-history')) {
+                    isSwiping = false;
+                    return;
+                }
+                isSwiping = true;
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            sectionsContainer.addEventListener('touchend', e => {
+                if (!isSwiping) return;
+                isSwiping = false;
+
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                    const currentActive = document.querySelector('.nav-button.active');
+                    const currentIndex = sectionIds.indexOf(currentActive.dataset.section);
+                    if (deltaX < 0) { // Swipe Left
+                        const nextIndex = Math.min(sectionIds.length - 1, currentIndex + 1);
+                        showSection(sectionIds[nextIndex]);
+                    } else { // Swipe Right
+                        const prevIndex = Math.max(0, currentIndex - 1);
+                        showSection(sectionIds[prevIndex]);
+                    }
+                }
+            }, { passive: true });
+        }
+        
+        // --- アプリケーション初期化 ---
+        function initializeAppState() {
+            // スワイプコンテナの幅を設定
+            const numSections = sectionIds.length;
+            sectionsContainer.style.width = `${numSections * 100}%`;
+            sections.forEach(sec => {
+                sec.style.width = `${100 / numSections}%`;
+            });
+            
+            checkWeeklyReset();
+            displayEmotionHistory();
+            displayValues();
+            showSection('emotion'); // 初期セクションを表示
+        }
+        
+        initializeAppState();
+        setupEventListeners();
+
+    </script>
 </body>
 </html>
